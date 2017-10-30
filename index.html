@@ -25,7 +25,7 @@ body {
 		var jumpsnd;
 		var stompsnd;
 		var coinsnd;
-		var deathsnd;
+		var deadsnd;
 		
 		//Score variables
 		var scorestyle;
@@ -43,7 +43,7 @@ body {
 			game.load.audio('jump', ['audio/jump.wav']);
 			game.load.audio('stomp', ['audio/stomp.wav']);
 			game.load.audio('flip', ['audio/coin.wav']);
-			game.load.audio('death' ['audio/MarioDeath.mp3']);
+			game.load.audio('dead' ['audio/MarioDeath.mp3','audio/MarioDeath.ogg']);
 
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
@@ -199,8 +199,8 @@ body {
 			} else {
 				
 				//Death sound play
-				deathsnd = game.add.audio('death');
-				deathsnd.play();
+				deadsnd = game.add.audio('dead');
+				deadsnd.play();
 				music.stop();
 				
 				player.frame = 6;
