@@ -201,6 +201,7 @@ body {
 				//Death sound play
 				deathsnd = game.add.audio('death');
 				deathsnd.play();
+				music.stop();
 				
 				player.frame = 6;
 				player.body.enable = false;
