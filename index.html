@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-test3</title>
+<title>Super-Mario</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -20,6 +20,9 @@ body {
 			update : update
 		}, false, false);
 		
+		//Sound variables
+		var music;
+
 		function preload() {
 
 			//  We need this because the assets are on github pages
@@ -40,13 +43,10 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 		}
 		
-		//Sound variables
-		var music = game.add.audio('sound');
-		
-
 		function create() {
 			
 			//Music play
+			music = game.add.audio('sound');
 			music.play();
 			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
