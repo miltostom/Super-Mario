@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-test2</title>
+<title>Super-test3</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -19,9 +19,6 @@ body {
 			create : create,
 			update : update
 		}, false, false);
-		
-		//Sound variables
-		var music = game.add.audio('sound');
 		
 		function preload() {
 
@@ -42,6 +39,10 @@ body {
 			this.load.tilemap('level', 'assets/super_mario_map.json', null,
 					Phaser.Tilemap.TILED_JSON);
 		}
+		
+		//Sound variables
+		var music = game.add.audio('sound');
+		
 
 		function create() {
 			
