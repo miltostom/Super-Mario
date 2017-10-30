@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-test</title>
+<title>Super-test2</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -21,7 +21,7 @@ body {
 		}, false, false);
 		
 		//Sound variables
-		var music;
+		var music = game.add.audio('sound');
 		
 		function preload() {
 
@@ -46,7 +46,6 @@ body {
 		function create() {
 			
 			//Music play
-			music = game.add.audio('sound');
 			music.play();
 			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
