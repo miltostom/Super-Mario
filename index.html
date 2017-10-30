@@ -26,6 +26,10 @@ body {
 		var stompsnd;
 		var coinsnd;
 		
+		//Score variables
+		var scorestyle;
+		var scorecount;
+		
 		function preload() {
 
 			//  We need this because the assets are on github pages
@@ -54,6 +58,17 @@ body {
 			//Music play
 			music = game.add.audio('sound');
 			music.play();
+			
+			//Score print
+			scorestyle = game.add.text(5, 5, '0',{
+				font: "20px arial",
+				fill: "#ffffff",
+				aligment: "center"
+			});
+			scorestyle.fixedToCamera = true;
+			scorestyle.stroke = '#000000';
+    			scorestyle.strokeThickness = 1;
+			scorecount = 0;
 			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
@@ -103,6 +118,11 @@ body {
 		}
 
 		function update() {
+			
+			//Score update
+			scorestyle.text = "SCORE : " + scorecount;
+			game.world.bringToTop(scorestyle);
+			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
 			game.physics.arcade.overlap(player, goombas, goombaOverlap);
@@ -151,6 +171,9 @@ body {
 			coinsnd = game.add.audio('flip');
 			coinsnd.play();
 			
+			//Score refresh
+			scorecount += 20;
+			
 			coin.kill();
 		}
 
@@ -160,6 +183,9 @@ body {
 				//Stomp sound play
 				stompsnd = game.add.audio('stomp');
 				stompsnd.play();
+				
+				//Score refresh
+				scorecount += 10;
 				
 				goomba.animations.stop();
 				goomba.frame = 2;
