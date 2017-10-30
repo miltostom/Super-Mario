@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-test2</title>
+<title>Super-test</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -23,6 +23,7 @@ body {
 		//Sound variables
 		var music;
 		var jumpsnd;
+		var stompsnd;
 
 		function preload() {
 
@@ -34,6 +35,7 @@ body {
 			//Sounds
 			game.load.audio('sound', ['audio/bgm.mp3','audio/bgm.ogg']);
 			game.load.audio('jump', ['audio/jump.wav']);
+			game.load.audio('stomp', ['audio/stomp.wav']);
 
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
@@ -147,6 +149,11 @@ body {
 
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
+				
+				//Stomp sound play
+				stompsnd = game.add.audio('stomp');
+				stompsnd.play();
+				
 				goomba.animations.stop();
 				goomba.frame = 2;
 				goomba.body.enable = false;
