@@ -19,83 +19,38 @@ body {
 			create : create,
 			update : update
 		}, false, false);
-		
-		//Sound variables
-		var music;
-		var jumpsnd;
-		var stompsnd;
-		var coinsnd;
-		var deadsnd;
-		
-		//Score variables
-		var scorestyle;
-		var scorecount;
-		
 		function preload() {
-
 			//  We need this because the assets are on github pages
 			//  Remove the next 2 lines if running locally
-			this.load.baseURL = 'https://miltostom.github.io/Super-Mario/';
+			this.load.baseURL = 'https://ioniodi.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
-			
-			//Sounds
-			game.load.audio('sound', ['audio/bgm.mp3','audio/bgm.ogg']);
-			game.load.audio('jump', ['audio/jump.wav']);
-			game.load.audio('stomp', ['audio/stomp.wav']);
-			game.load.audio('flip', ['audio/coin.wav']);
-			game.load.audio('dead' ['audio/MarioDeath.mp3','audio/MarioDeath.ogg']);
-
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
 			this.load.spritesheet('mario', 'assets/mario.png', 16, 16);
 			this.load.spritesheet('coin', 'assets/coin.png', 16, 16);
-
 			this.load.tilemap('level', 'assets/super_mario_map.json', null,
 					Phaser.Tilemap.TILED_JSON);
 		}
-		
 		function create() {
-			
-			//Music play
-			music = game.add.audio('sound');
-			music.play();
-			
-			//Score print
-			scorestyle = game.add.text(5, 5, '0',{
-				font: "20px arial",
-				fill: "#ffffff",
-				aligment: "center"
-			});
-			scorestyle.fixedToCamera = true;
-			scorestyle.stroke = '#000000';
-    			scorestyle.strokeThickness = 1;
-			scorecount = 0;
-			
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
 			game.scale.pageAlignVertically = true
 			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			game.physics.startSystem(Phaser.Physics.ARCADE);
-
 			game.stage.backgroundColor = '#5c94fc';
-
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
-
 			map.createLayer('background');
-
 			layer = map.createLayer('solid');
 			layer.resizeWorld();
-
 			coins = game.add.group();
 			coins.enableBody = true;
 			map.createFromTiles(2, null, 'coin', 'stuff', coins);
 			coins.callAll('animations.add', 'animations', 'spin',
 					[ 0, 0, 1, 2 ], 3, true);
 			coins.callAll('animations.play', 'animations', 'spin');
-
 			goombas = game.add.group();
 			goombas.enableBody = true;
 			map.createFromTiles(1, null, 'goomba', 'stuff', goombas);
@@ -105,7 +60,6 @@ body {
 			goombas.setAll('body.bounce.x', 1);
 			goombas.setAll('body.velocity.x', -20);
 			goombas.setAll('body.gravity.y', 500);
-
 			player = game.add.sprite(16, game.world.height - 48, 'mario');
 			game.physics.arcade.enable(player);
 			player.body.gravity.y = 370;
@@ -113,23 +67,14 @@ body {
 			player.animations.add('walkRight', [ 1, 2, 3 ], 10, true);
 			player.animations.add('walkLeft', [ 8, 9, 10 ], 10, true);
 			player.goesRight = true;
-
 			game.camera.follow(player);
-
 			cursors = game.input.keyboard.createCursorKeys();
 		}
-
 		function update() {
-			
-			//Score update
-			scorestyle.text = "SCORE : " + scorecount;
-			game.world.bringToTop(scorestyle);
-			
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
 			game.physics.arcade.overlap(player, goombas, goombaOverlap);
 			game.physics.arcade.overlap(player, coins, coinOverlap);
-
 			if (player.body.enable) {
 				player.body.velocity.x = 0;
 				if (cursors.left.isDown) {
@@ -147,17 +92,10 @@ body {
 					else
 						player.frame = 7;
 				}
-
 				if (cursors.up.isDown && player.body.onFloor()) {
-					
-					//Jump sound play
-					jumpsnd = game.add.audio('jump');
-					jumpsnd.play();
-					
 					player.body.velocity.y = -190;
 					player.animations.stop();
 				}
-
 				if (player.body.velocity.y != 0) {
 					if (player.goesRight)
 						player.frame = 5;
@@ -166,29 +104,11 @@ body {
 				}
 			}
 		}
-
 		function coinOverlap(player, coin) {
-			
-			//Coin sound play
-			coinsnd = game.add.audio('flip');
-			coinsnd.play();
-			
-			//Score refresh
-			scorecount += 10;
-			
 			coin.kill();
 		}
-
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
-				
-				//Stomp sound play
-				stompsnd = game.add.audio('stomp');
-				stompsnd.play();
-				
-				//Score refresh
-				scorecount += 20;
-				
 				goomba.animations.stop();
 				goomba.frame = 2;
 				goomba.body.enable = false;
@@ -197,12 +117,6 @@ body {
 					goomba.kill();
 				});
 			} else {
-				
-				//Death sound play
-				deadsnd = game.add.audio('dead');
-				deadsnd.play();
-				music.stop();
-				
 				player.frame = 6;
 				player.body.enable = false;
 				player.animations.stop();
