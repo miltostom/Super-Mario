@@ -24,6 +24,7 @@ body {
 			//  Remove the next 2 lines if running locally
 			this.load.baseURL = 'https://ioniodi.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
+			game.load.audio('main',['audio/bgm.mp3','audio/bgm.ogg']);
 			game.load.audio('jump',['audio/jump.wav']);
 			game.load.audio('flip',['audio/coin.wav']);
 			game.load.audio('kill',['audio/stomp.wav']);
@@ -42,6 +43,8 @@ body {
 			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 			game.stage.backgroundColor = '#5c94fc';
+			music = game.add.audio('main');
+			music.play('',0,1,true);
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
