@@ -24,6 +24,9 @@ body {
 			//  Remove the next 2 lines if running locally
 			this.load.baseURL = 'https://ioniodi.github.io/Super-Mario/';
 			this.load.crossOrigin = 'anonymous';
+			game.load.audio('jump',['audio/jump.wav']);
+			game.load.audio('flip',['audio/coin.wav']);
+			game.load.audio('kill',['audio/stomp.wav']);
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
@@ -94,6 +97,8 @@ body {
 				}
 				if (cursors.up.isDown && player.body.onFloor()) {
 					player.body.velocity.y = -190;
+					jumpSound = game.add.audio('jump');
+					jumpSound.play();
 					player.animations.stop();
 				}
 				if (player.body.velocity.y != 0) {
@@ -106,9 +111,13 @@ body {
 		}
 		function coinOverlap(player, coin) {
 			coin.kill();
+			coinSound = game.add.audio('flip')
+			coinSound.play();
 		}
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
+				killSound = game.add.audio('kill');
+				killSound.play();
 				goomba.animations.stop();
 				goomba.frame = 2;
 				goomba.body.enable = false;
