@@ -197,6 +197,8 @@ body {
 				localStorage.setItem( "lives", livesCount);
 
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
+					if(livesCount > 0)
+						this.game.state.restart();
 					game.paused = true;
 				});
 			}
