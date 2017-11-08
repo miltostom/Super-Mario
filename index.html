@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario</title>
+<title>Super-Mario22</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -40,7 +40,22 @@ body {
 					Phaser.Tilemap.TILED_JSON);
 		}
 
+		var scoreStyle;
+		var scoreCount;
+
 		function create() {
+
+			//Score
+			scoreStyle = game.add.text( 5, 5, '0',{
+				font: "25px arial",
+				fill: "#ffffff",
+				aligment: "center"
+			});
+			scoreStyle.fixedToCamera = true;
+			scoreStyle.stroke = '#000000';
+			scoreStyle.strokeThickness = 1;
+			scoreCount = 0;
+
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
 			game.scale.pageAlignVertically = true
@@ -84,6 +99,9 @@ body {
 			cursors = game.input.keyboard.createCursorKeys();
 		}
 		function update() {
+
+			scoreStyle.text = "Score : " + scoreCount
+
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
 			game.physics.arcade.overlap(player, goombas, goombaOverlap);
@@ -120,6 +138,9 @@ body {
 			}
 		}
 		function coinOverlap(player, coin) {
+
+			scoreCount += 10;
+
 			coin.kill();
 			coinSound = game.add.audio('flip')
 			coinSound.play();
@@ -127,8 +148,9 @@ body {
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
 
+				scoreCount += 25;
+
 				//Death sound
-				music.stop();
 				killSound = game.add.audio('kill');
 				killSound.play();
 
@@ -140,11 +162,16 @@ body {
 					goomba.kill();
 				});
 			} else {
+
 				player.frame = 6;
 				player.body.enable = false;
 				player.animations.stop();
+
+				//Death
+				music.stop();
 				deathSound = game.add.audio('death');
 				deathSound.play();
+
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
 					game.paused = true;
 				});
