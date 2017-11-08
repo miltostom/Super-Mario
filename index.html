@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario22</title>
+<title>Super-Mario</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -197,9 +197,9 @@ body {
 				localStorage.setItem( "lives", livesCount);
 
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
-					if(lives_count > 0){
+					if(livesCount > 0){
 						this.game.state.restart();
-					}else if(lives_count == 0){
+					}else if(livesCount == 0){
 						game.paused = true;
 					}
 				});
