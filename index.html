@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario22</title>
+<title>Super-Mario</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -101,6 +101,7 @@ body {
 		function update() {
 
 			scoreStyle.text = "Score : " + scoreCount
+			game.world.bringToTop(scoreStyle);
 
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
