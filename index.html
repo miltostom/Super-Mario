@@ -57,14 +57,17 @@ body {
 				fill: "#ffffff",
 				aligment: "center"
 			});
+			scoreStyle.fixedToCamera = true;
+			scoreStyle.stroke = '#000000';
+			scoreStyle.strokeThickness = 1;
 			scoreCount = 0;
 
+			//Lives
 			livesStyle = game.add.text( 170, 5, '0',{
 				font: "25px arial",
 				fill: "#ffffff",
 				aligment: "center"
 			});
-
 			livesStyle.fixedToCamera = true;
 			livesStyle.stroke = '#000000';
 			livesStyle.strokeThickness = 1;
@@ -118,7 +121,7 @@ body {
 			game.world.bringToTop(scoreStyle);
 
 			livesStyle.text = "Lives : " + livesCount
-			game.world.bringToTop(livesCount);
+			game.world.bringToTop(livesStyle);
 
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
