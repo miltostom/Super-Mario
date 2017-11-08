@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario</title>
+<title>Super-Marioz</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -43,6 +43,12 @@ body {
 		var scoreStyle;
 		var scoreCount;
 
+
+		localStorage.setItem( "lives", 3);
+
+		var livesStyle
+		var livesCount
+
 		function create() {
 
 			//Score
@@ -51,10 +57,17 @@ body {
 				fill: "#ffffff",
 				aligment: "center"
 			});
-			scoreStyle.fixedToCamera = true;
-			scoreStyle.stroke = '#000000';
-			scoreStyle.strokeThickness = 1;
-			scoreCount = 0;
+
+			livesStyle = game.add.text( 190, 5, '0',{
+				font: "25px arial",
+				fill: "#ffffff",
+				aligment: "center"
+			});
+
+			livesStyle.fixedToCamera = true;
+			livesStyle.stroke = '#000000';
+			livesStyle.strokeThickness = 1;
+			livesCount = parseInt(localStorage.getItem("lives"));
 
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
@@ -102,6 +115,9 @@ body {
 
 			scoreStyle.text = "Score : " + scoreCount
 			game.world.bringToTop(scoreStyle);
+
+			livesStyle.text = "Lives : " + livesCount
+			game.world.bringToTop(livesCount);
 
 			game.physics.arcade.collide(player, layer);
 			game.physics.arcade.collide(goombas, layer);
@@ -172,6 +188,9 @@ body {
 				music.stop();
 				deathSound = game.add.audio('death');
 				deathSound.play();
+
+				livesCount -= 1;
+				localStorage.setItem( "lives", livesCount);
 
 				game.time.events.add(Phaser.Timer.SECOND * 3, function() {
 					game.paused = true;
