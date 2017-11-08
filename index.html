@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario2</title>
+<title>Super-Mario</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -47,8 +47,11 @@ body {
 			game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 			game.physics.startSystem(Phaser.Physics.ARCADE);
 			game.stage.backgroundColor = '#5c94fc';
+
+			//Music
 			music = game.add.audio('main');
 			music.play('',0,1,true);
+
 			map = game.add.tilemap('level');
 			map.addTilesetImage('tiles', 'tiles');
 			map.setCollisionBetween(3, 12, true, 'solid');
@@ -125,6 +128,7 @@ body {
 			if (player.body.touching.down) {
 
 				//Death sound
+				music.stop();
 				killSound = game.add.audio('kill');
 				killSound.play();
 
