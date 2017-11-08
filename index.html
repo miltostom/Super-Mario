@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Super-Mario</title>
+<title>Super-Mario2</title>
 <meta charset="utf-8">
 <style>
 body {
@@ -29,7 +29,8 @@ body {
 			game.load.audio('jump',['audio/jump.wav']);
 			game.load.audio('flip',['audio/coin.wav']);
 			game.load.audio('kill',['audio/stomp.wav']);
-			game.load.audio('death',['audio/deadmario.mp3']);
+			game.load.audio('death',['audio/Death.mp3','audio/Death.ogg']);
+
 			this.load.spritesheet('tiles', 'assets/super_mario_tiles.png', 16,
 					16);
 			this.load.spritesheet('goomba', 'assets/goomba.png', 16, 16);
@@ -38,6 +39,7 @@ body {
 			this.load.tilemap('level', 'assets/super_mario_map.json', null,
 					Phaser.Tilemap.TILED_JSON);
 		}
+
 		function create() {
 			Phaser.Canvas.setImageRenderingCrisp(game.canvas)
 			game.scale.pageAlignHorizontally = true;
@@ -121,8 +123,11 @@ body {
 		}
 		function goombaOverlap(player, goomba) {
 			if (player.body.touching.down) {
+
+				//Death sound
 				killSound = game.add.audio('kill');
 				killSound.play();
+
 				goomba.animations.stop();
 				goomba.frame = 2;
 				goomba.body.enable = false;
